@@ -7,9 +7,9 @@ export default class Base {
     this.statusResponse = statusResponse;
   }
 
-  list = async ($params = '') => {
+  list = async () => {
     try {
-      const data = await this.service.get(this.api, {params: $params});
+      const {data} = await this.service.get(this.api);
       return data;
     } catch (error) {
       throw statusResponse(error, 'list');
