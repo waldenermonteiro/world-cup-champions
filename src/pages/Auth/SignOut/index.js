@@ -1,8 +1,9 @@
 import React from 'react';
 import {Text} from 'react-native';
+import {useAuth} from '../../../contexts/auth';
 
 function SignOut() {
-  const signOut = () => {};
+  const {signOut} = useAuth();
   return (
     <Text style={{marginRight: 10}} onPress={signOut}>
       Logout
