@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import {Input, Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loader from '../../../components/Loader';
+import InputEye from '../components/InputEye';
 
 import style from './styles';
 import {useAuth} from '../../../contexts/auth';
@@ -17,6 +18,7 @@ const SignIn = () => {
   const [errorEmail, setErrorEmail] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [secureTextEntry, setSecureTextEntry] = useState(true);
   const handleSignin = async () => {
     setErrorMessage({
       fieldValue: userForm.email,
@@ -57,8 +59,14 @@ const SignIn = () => {
           onChangeText={(v) => setUserForm({...userForm, password: v})}
           value={userForm.password}
           placeholder="Password"
-          secureTextEntry={true}
+          secureTextEntry={secureTextEntry}
           leftIcon={<Icon name="lock" size={24} color="black" />}
+          rightIcon={
+            <InputEye
+              secureTextEntry={secureTextEntry}
+              click={setSecureTextEntry}
+            />
+          }
         />
       </View>
       <Button
