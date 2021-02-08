@@ -3,6 +3,6 @@ export const showError = (fieldValue, error) => {
 };
 export const setErrorMessage = ({fieldValue, fieldName, callback}) => {
   if (fieldValue === '') {
-    callback(`This ${fieldName} is required`);
+    callback(`The ${fieldName} field is required`);
   }
 };
