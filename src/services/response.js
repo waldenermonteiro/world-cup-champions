@@ -9,6 +9,6 @@ const verifyStatusResponse = (response, type, description) => {
     401: () => 'Incorrect email or password',
     default: () => 'Error on request',
   };
-  return (statusHttp[response.status] || statusHttp.default)();
+  return new Error((statusHttp[response.status] || statusHttp.default)());
 };
 export {statusResponse};
