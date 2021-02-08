@@ -28,7 +28,7 @@ const Winner = () => {
           {winners.map((item, i) => (
             <ListItem bottomDivider key={i}>
               <Avatar
-                source={require('../..//assets/icon.png')}
+                source={require('./img/icon.png')}
                 style={{width: 20, height: 40}}
               />
               <ListItem.Content>
