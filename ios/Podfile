@@ -8,6 +8,8 @@ target 'world_cup_champions' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
   target 'world_cup_championsTests' do
     inherit! :complete
     # Pods for testing
