@@ -1,4 +1,4 @@
-import Base from '../../../services/base';
+import Base from '../../../services';
 
 export default new (class AuthService extends Base {
   constructor() {
