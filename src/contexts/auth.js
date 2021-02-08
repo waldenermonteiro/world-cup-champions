@@ -2,7 +2,7 @@ import React, {createContext, useEffect, useState, useContext} from 'react';
 import {Alert} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import AuthService from '../pages/Auth/services/';
-import {http} from '../services/http';
+
 const AuthContext = createContext({signed: true});
 
 const AuthProvider = ({children}) => {
@@ -23,8 +23,6 @@ const AuthProvider = ({children}) => {
   async function signIn(params) {
     try {
       const {Token} = await AuthService.signIn(params);
-
-      http.defaults.headers.Authorization = `Bearer ${Token}`;
 
       setToken(Token);
 
