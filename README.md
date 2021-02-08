@@ -52,7 +52,7 @@ emulator-5554 offline   # Google emulator
 ```
 Seeing device in the right column means the device is connected. You must have only one device connected at a time.
 
-## Step 3 : Run your app#
+## Step 3 : Run the app
 
 Type the following in your command prompt to install and launch your app on the device:
 ```bash
