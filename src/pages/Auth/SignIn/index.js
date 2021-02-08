@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {View, ActivityIndicator} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Input, Button} from 'react-native-elements';
 import {useAuth} from '../../../contexts/auth';
@@ -9,11 +9,14 @@ import {showError, setErrorMessage} from '../../../helpers/input-error.helper';
 const SignIn = () => {
   const {signIn} = useAuth();
 
-  const [userForm, setUserForm] = useState({email: '', password: ''});
+  const [userForm, setUserForm] = useState({
+    email: '',
+    password: '',
+  });
   const [errorEmail, setErrorEmail] = useState('');
   const [errorPassword, setErrorPassword] = useState('');
-
-  const handleSignin = () => {
+  const [loading, setLoading] = useState(false);
+  const handleSignin = async () => {
     setErrorMessage({
       fieldValue: userForm.email,
       fieldName: 'email',
@@ -24,10 +27,29 @@ const SignIn = () => {
       fieldName: 'password',
       callback: setErrorPassword,
     });
+
     if (userForm.email !== '' && userForm.password !== '') {
-      signIn(userForm);
+      try {
+        setLoading(true);
+        await signIn(userForm);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+      }
     }
   };
+  if (loading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <ActivityIndicator size="large" color="#666" />
+      </View>
+    );
+  }
   return (
     <View style={style.container}>
       <View style={style.container_inputs}>
