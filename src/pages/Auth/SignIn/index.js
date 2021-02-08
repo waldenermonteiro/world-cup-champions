@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import {View, ActivityIndicator} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {View} from 'react-native';
 import {Input, Button} from 'react-native-elements';
-import {useAuth} from '../../../contexts/auth';
-import style from './styles';
-import {showError, setErrorMessage} from '../../../helpers/input-error.helper';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Loader from '../../../components/Loader';
 
+import style from './styles';
+import {useAuth} from '../../../contexts/auth';
+import {showError, setErrorMessage} from '../../../helpers/input-error.helper';
 const SignIn = () => {
   const {signIn} = useAuth();
 
@@ -38,20 +39,9 @@ const SignIn = () => {
       }
     }
   };
-  if (loading) {
-    return (
-      <View
-        style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-        <ActivityIndicator size="large" color="#666" />
-      </View>
-    );
-  }
   return (
     <View style={style.container}>
+      <Loader loading={loading} />
       <View style={style.container_inputs}>
         <Input
           errorStyle={style.input_error}
