@@ -1,42 +1,48 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, SafeAreaView, ScrollView, View} from 'react-native';
-import {ListItem, Avatar} from 'react-native-elements';
-import Loader from '../../components/Loader';
-
-import WinnerService from './services/index';
+import {SafeAreaView, ScrollView, View} from 'react-native';
+import {CheckBox} from 'react-native-elements';
+import ListInLines from './components/ListInLines';
+import ListInCards from './components/ListInCards';
+import {winnersArray} from './winnerArray';
 const Winner = () => {
-  const [loading, setLoading] = useState(false);
   const [winners, setWinners] = useState([]);
+  const [checked, setChecked] = useState(false);
   useEffect(() => {
-    async function loadStorageData() {
-      setLoading(true);
-      try {
-        const response = await WinnerService.list();
-        setWinners(response.winners);
-        setLoading(false);
-      } catch (error) {
-        Alert.alert(error.message);
-      }
+    async function loadWinners() {
+      setWinners(winnersArray);
     }
-    loadStorageData();
+    loadWinners();
   }, []);
+  const images = {
+    flags: {
+      argentina: require('../../assets/flags/argentina.png'),
+      brazil: require('../../assets/flags/brazil.png'),
+      england: require('../../assets/flags/england.png'),
+      france: require('../../assets/flags/france.png'),
+      germany: require('../../assets/flags/germany.png'),
+      italy: require('../../assets/flags/italy.png'),
+      spain: require('../../assets/flags/spain.png'),
+      uruguay: require('../../assets/flags/uruguay.png'),
+      'west germany': require('../../assets/flags/germany.png'),
+    },
+  };
+  function verifyChecked(item, key) {
+    if (!checked) {
+      return <ListInLines item={item} images={images} key={key} />;
+    } else {
+      return <ListInCards item={item} images={images} key={key} />;
+    }
+  }
   return (
     <SafeAreaView>
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View>
-          <Loader loading={loading} />
-          {winners.map((item, i) => (
-            <ListItem bottomDivider key={i}>
-              <Avatar
-                source={require('./img/icon.png')}
-                style={{width: 20, height: 40}}
-              />
-              <ListItem.Content>
-                <ListItem.Title>{item.country}</ListItem.Title>
-                <ListItem.Subtitle>{item.year}</ListItem.Subtitle>
-              </ListItem.Content>
-            </ListItem>
-          ))}
+          <CheckBox
+            title="View in cards"
+            checked={checked}
+            onPress={() => setChecked(!checked)}
+          />
+          {winners.map((item, key) => verifyChecked(item, key))}
         </View>
       </ScrollView>
     </SafeAreaView>
