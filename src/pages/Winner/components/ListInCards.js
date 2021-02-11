@@ -1,6 +1,6 @@
 import React from 'react';
-import {Avatar, Card, ListItem, Button, Icon} from 'react-native-elements';
-import {Image, View} from 'react-native';
+import {Avatar, Card} from 'react-native-elements';
+import {Image, Text, View} from 'react-native';
 const ListInCards = ({item, images}) => {
   return (
     <Card
@@ -14,6 +14,7 @@ const ListInCards = ({item, images}) => {
         source={images.flags[String(item.country).toLowerCase()]}
         style={{width: 100, height: 100, marginBottom: 10}}
       />
+      <Text style={{textAlign: 'center', marginBottom: 10}}>{item.year}</Text>
       <View
         style={{
           flex: 1,
